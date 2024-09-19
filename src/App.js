@@ -12,7 +12,7 @@ import thumnail3 from './assets/image-product-3-thumbnail.jpg';
 import thumnail4 from './assets/image-product-4-thumbnail.jpg';
 import img1 from './assets/image-product-1.jpg';
 import img2 from './assets/image-product-2.jpg';
-import img3 from './assets/image-product-3.jpg';
+import img3 from './assets/image-product-3.jpg'; 
 import img4 from './assets/image-product-4.jpg';
 
 import { useEffect, useState } from 'react';
@@ -74,41 +74,49 @@ function App() {
     }
   }
 
+  const handleModal = e => {
+    if(e.target.parentElement.parentElement.parentElement.children[0].style.display == 'none'){
+      e.target.parentElement.parentElement.parentElement.children[0].style.display = 'block'
+    }else {
+      e.target.parentElement.parentElement.parentElement.children[0].style.display = 'none'
+    }
+  }
+
   return (
     <div className="App">
+      <div className="cart-modal">
+        <span className='cart-name'>Cart</span>
+        <div className="in-cart">
+          {selected != 0 && 
+            <React.Fragment>
+              <img className='cart-thumnail' src={thumnail1} />
+              <div className="cart-detail">
+                <span className='product-name'>Fall Limited Edition Sneakers</span>
+                <div>
+                  <span>$125.00 x {selected} <span>${selectedResult}.00</span></span>
+                </div>
+              </div>
+              <img className='del' src={del} onClick={handleDelete}/>
+              <a href="#">Check Out</a>
+            </React.Fragment>
+          }
+          {selected == 0 && 
+            <span className="empty-cart">Your cart is empty</span>
+          }
+        </div>
+      </div>
       <nav>
         <img className='logo' src={logo}  />
-        <div className="links">
-          <a href="#">Collections</a>
-          <a href="#">Men</a>
-          <a href="#">Women</a>
-          <a href="#">About</a>
-          <a href="#">Contact</a>
-        </div>
-        <div className="user">
-          <img src={cart} className="cart" />
-          <div className="cart-modal">
-            <span>Cart</span>
-            <hr />
-            <div className="in-cart">
-              {selected != 0 && 
-                <React.Fragment>
-                  <img src={thumnail1} />
-                  <div className="cart-detail">
-                    <span className='product-name'>Fall Limited Edition Sneakers</span>
-                    <div>
-                      <span>$125.00 x {selected} ${selectedResult}.00</span>
-                    </div>
-                  </div>
-                  <img src={del} onClick={handleDelete}/>
-                </React.Fragment>
-              }
-              {selected == 0 && 
-                <span className="empty-cart">Your cart is empty</span>
-              }
-            </div>
+          <div className="links">
+            <a href="#">Collections</a>
+            <a href="#">Men</a>
+            <a href="#">Women</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
           </div>
-          <img src={avatar} />
+        <div className="user">
+          <img onClick={handleModal} src={cart} className="cart" />
+          <img className='avatar' src={avatar} />
         </div>
       </nav>
       <section>
@@ -135,14 +143,12 @@ function App() {
               </button>
             </div>
         </div>
-        <div className="imgs">
+        <div className="images">
           <img className='image' src={img} />
-          <div>
-            <img src={thumnail1} onClick={handleImg} className='thumnail' id='thum1'/>
-            <img src={thumnail2} onClick={handleImg} className='thumnail' id='thum2'/>
-            <img src={thumnail3} onClick={handleImg} className='thumnail' id='thum3'/>
-            <img src={thumnail4} onClick={handleImg} className='thumnail' id='thum4'/>
-          </div>
+          <img src={thumnail1} onClick={handleImg} className='thumnail' id='thum1'/>
+          <img src={thumnail2} onClick={handleImg} className='thumnail' id='thum2'/>
+          <img src={thumnail3} onClick={handleImg} className='thumnail' id='thum3'/>
+          <img src={thumnail4} onClick={handleImg} className='thumnail' id='thum4'/>
         </div>
       </section>
     </div>
