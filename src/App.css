@@ -78,7 +78,7 @@ nav{
 nav::after{
     content: '';
     position: absolute;
-    top: 96px;
+    margin-top: 96px;
     background-color: var(--grayish-blue);
     width: 80%;
     height: 1px;
@@ -118,7 +118,7 @@ nav::after{
     z-index: 2;
     display: none;
     position: absolute;
-    width: 23%;
+    width: max(23%, 250px);
     right: 60px;
     height: 200px;
     top: 80px;
@@ -208,8 +208,9 @@ section{
 .detail{
     width: 47%;
     height: 66%;
-    /* display: flex;
-    flex-direction: column; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .company{
@@ -218,7 +219,6 @@ section{
 }
 
 .detail h3{
-    margin-top: 10px;
     color: var(--very-dark-blue);
     margin-bottom: 20px;
     font-size: 40px;
@@ -303,7 +303,7 @@ section{
 }
 
 .images{
-    width: max(47%, 373px);
+    width: max(47%, 400px);
     height: 75%;
     display: flex;
     flex-direction: column;
@@ -420,4 +420,70 @@ Modal
 .active-thumbnail-modal{
     border: 3px solid var(--orange);
     opacity: 0.7;
+}
+
+/* 
+==========
+ViewPorts
+==========
+*/
+
+@media screen and (max-width : 900px){
+    nav, section{
+        width: 90%;
+    }
+    section{
+        place-content: flex-start;
+        place-items: flex-start;
+        margin-top: 50px;
+    }
+    nav::after{
+        width: 90%;
+    }
+    .detail h3{
+        font-size: 4.3vw;
+    }
+    .company{
+        font-size: 1.7vw;
+    }
+    .detail p{
+        font-size: 2vw;
+    }
+    .offer {
+        margin-left: 2%;
+        padding: 0.6% 2%;
+        font-size: 1.6vw;
+    }
+    .offered-price{
+        font-size: 2.4vw;
+    }
+    .price{
+        font-size: 1.6vw;
+    }
+    .add-cart div{
+        padding: 5%;
+    }
+    .add-cart div img{
+        width: 17%;
+    }
+    .add-cart div span{
+        font-size: 5%;
+    }
+    .add-cart button span{
+        font-size: 1.5vw;
+    }
+    .add-cart button img{
+        width: 12%;
+    }
+    .images{
+        min-width: 50%;
+        height: 70%;
+    }
+    .detail{
+        height: 80%;
+    }
+}
+
+@media screen and (max-width : 700px) {
+    
 }
