@@ -15,7 +15,7 @@
 
 html, body, .App, #root{
     width: 100%;
-    /* height: 100%; */
+    height: 100%;
     overflow: auto;
 }
 
@@ -72,6 +72,7 @@ nav{
     height: 4px;
     width: 90%;
     align-self: center;
+    border-radius: 3px;
 }
 
 nav::after{
@@ -185,7 +186,7 @@ nav::after{
     text-align: center;
     background-color: var(--orange);
     position: absolute;
-    bottom: -65px;
+    bottom: -60px;
 }
 
 /* 
@@ -196,12 +197,227 @@ Section
 
 section{
     width: 73%; 
+    /* margin-top: 65px; */
+    display: flex;
+    height: 100%;
+    flex-direction: row-reverse;
+    place-items: center;
+    justify-content: space-between;
+}
+
+.detail{
+    width: 47%;
+    height: 66%;
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.company{
+    color: var(--dark-grayish-blue);
+    margin-bottom: 10px;
+}
+
+.detail h3{
+    margin-top: 10px;
+    color: var(--very-dark-blue);
+    margin-bottom: 20px;
+    font-size: 40px;
+}
+
+.detail p{
+    color: var(--dark-grayish-blue);
+    font-size: 17px;
+    margin-bottom: 15px;
+}
+
+.prices{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.prices div{
+    margin-bottom: 10px;
+}
+
+.offer{
+    margin-left: 8px;
+    padding: 3px 7px;
+    color: white;
+    background-color: var(--very-dark-blue);
+    border-radius: 3px;
+}
+
+.offered-price{
+    font-size: 20px;
+    color: var(--very-dark-blue);
+}
+
+.price{
+    color: var(--dark-grayish-blue);
+    text-decoration: line-through;
+}
+
+.add-cart{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.add-cart div{
+    background-color: var(--light-grayish-blue);
+    display: flex;
+    padding: 17px;
+    justify-content: space-between;
+    align-items: center;
+    width: 33%;
+    border-radius: 8px;
+}
+
+.add-cart div img:hover{
+    cursor: pointer;
+}
+
+.add-cart button{
+    width: 63%;
+    background-color: var(--orange);
+    border: none;
+    border-radius: 8px;
+    color: var(--very-dark-blue);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.add-cart button img{
+    margin-right: 10px;
+}
+
+.add-cart button:hover{
+    background-color: hsla(26, 100%, 55%, 0.829);
+}
+
+.add-cart button:active{
+    background-color: var(--orange);
+}
+
+.images{
+    width: max(47%, 373px);
+    height: 75%;
+    display: flex;
+    flex-direction: column;
+    place-items: center;
+    place-content: center;
 }
 
 .image{
-    width: 200px;
+    width: 75%;
+    border-radius: 10px;
+    margin-bottom: 20px;
 }
 
-.thumnail{
-    width : 100px;
+.image:hover{
+    cursor: pointer;
+    border: 2px solid var(--orange);
+}
+
+.images div{
+    display: flex;
+    flex-direction: row;
+    width: 75%;
+    justify-content: space-between;
+}
+
+.thumbnail, .active-thumbnail{
+    margin-right: 20px;
+    width : 100%;
+    justify-self: end;
+    border-radius: 10px;
+}
+
+.active-thumbnail{
+    border: 2px solid var(--orange);
+    opacity: 0.5;
+}
+
+.active-thumbnail:hover, .thumbnail:hover{
+    cursor: pointer;
+    opacity: 0.5;
+}
+
+#thum4{
+    margin: 0;
+}
+
+/* 
+==========
+Modal
+==========
+*/
+
+.modal{
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 75%);
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+}
+
+.close{
+    margin-left: 36%;
+    width: 20px;
+}
+
+
+.previous, .next{
+    position: absolute;
+    padding: 10px 13px;
+    border-radius: 100%;
+    background-color: white;
+    margin-bottom: 5%;
+}
+
+.previous:hover, .next:hover{
+    background-color: rgba(255, 255, 255, 0.815);
+    cursor: pointer;
+}
+
+.previous{
+    left: 29%;
+}
+
+.next{
+    right: 29%;
+}
+
+.img-modal{
+    width: 32%;
+    border-radius: 10px;
+    margin: 10px 0 20px 0;
+}
+
+.modal div{
+    display: flex;
+    width: 30%;
+    justify-content: space-between;
+}
+
+.thumbnail-modal, .active-thumbnail-modal{
+    width: 20%;
+    border-radius: 10px;
+}
+
+.thumbnail-modal:hover, .active-thumbnail-modal:hover, .close:hover{
+    cursor: pointer;
+    opacity: 0.7;
+}
+
+.active-thumbnail-modal{
+    border: 3px solid var(--orange);
+    opacity: 0.7;
 }

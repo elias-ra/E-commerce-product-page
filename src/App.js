@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import './App.css';
 import logo from './assets/logo.svg';
 import cart from './assets/icon-cart.svg';
 import del from './assets/icon-delete.svg';
 import minus from './assets/icon-minus.svg';
 import plus from './assets/icon-plus.svg';
+import previous from './assets/icon-previous.svg';
+import next from './assets/icon-next.svg';
+import close from './assets/icon-close.svg';
+import menu from './assets/icon-menu.svg';
 import avatar from './assets/image-avatar.png';
 import thumnail1 from './assets/image-product-1-thumbnail.jpg';
 import thumnail2 from './assets/image-product-2-thumbnail.jpg';
@@ -15,13 +19,12 @@ import img2 from './assets/image-product-2.jpg';
 import img3 from './assets/image-product-3.jpg'; 
 import img4 from './assets/image-product-4.jpg';
 
-import { useEffect, useState } from 'react';
-
 function App() {
   const [selected, setSelected] = useState(0);
   const [inCart, setInCart] = useState(0)
   const [selectedResult, setSelectedResult] = useState();
-  const [img, setImg] = useState(img1)
+  const [img, setImg] = useState(img1);
+  const [imgModal, setImgModal] = useState(img1);
 
   useEffect(() => setSelectedResult(() => {return selected * 125.00}), [selected])
 
@@ -43,37 +46,37 @@ function App() {
   }
 
   const handleImg = e => {
-    console.log(e)
     if(e.target.id == 'thum1'){
       setImg(img1)
-      e.target.className = 'active-thumnail';
-      e.target.parentElement.children[1].className = 'thumnail';
-      e.target.parentElement.children[2].className = 'thumnail';
-      e.target.parentElement.children[3].className = 'thumnail';
+      e.target.className = 'active-thumbnail';
+      e.target.parentElement.children[1].className = 'thumbnail';
+      e.target.parentElement.children[2].className = 'thumbnail';
+      e.target.parentElement.children[3].className = 'thumbnail';
     }
     else if(e.target.id == 'thum2'){
       setImg(img2)
-      e.target.className = 'active-thumnail';
-      e.target.parentElement.children[0].className = 'thumnail';
-      e.target.parentElement.children[2].className = 'thumnail';
-      e.target.parentElement.children[3].className = 'thumnail';
+      e.target.className = 'active-thumbnail';
+      e.target.parentElement.children[0].className = 'thumbnail';
+      e.target.parentElement.children[2].className = 'thumbnail';
+      e.target.parentElement.children[3].className = 'thumbnail';
     }
     else if(e.target.id == 'thum3'){
       setImg(img3)
-      e.target.className = 'active-thumnail';
-      e.target.parentElement.children[0].className = 'thumnail';
-      e.target.parentElement.children[1].className = 'thumnail';
-      e.target.parentElement.children[3].className = 'thumnail';
+      e.target.className = 'active-thumbnail';
+      e.target.parentElement.children[0].className = 'thumbnail';
+      e.target.parentElement.children[1].className = 'thumbnail';
+      e.target.parentElement.children[3].className = 'thumbnail';
     }
     else if(e.target.id == 'thum4'){
       setImg(img4)
-      e.target.className = 'active-thumnail';
-      e.target.parentElement.children[0].className = 'thumnail';
-      e.target.parentElement.children[1].className = 'thumnail';
-      e.target.parentElement.children[2].className = 'thumnail';
+      e.target.className = 'active-thumbnail';
+      e.target.parentElement.children[0].className = 'thumbnail';
+      e.target.parentElement.children[1].className = 'thumbnail';
+      e.target.parentElement.children[2].className = 'thumbnail';
     }
   }
 
+  
   const handleModal = e => {
     if(e.target.parentElement.parentElement.parentElement.children[0].style.display == 'none'){
       e.target.parentElement.parentElement.parentElement.children[0].style.display = 'block'
@@ -81,6 +84,82 @@ function App() {
       e.target.parentElement.parentElement.parentElement.children[0].style.display = 'none'
     }
   }
+
+  const handleThumbnailModal = e => {
+    if(e.target.id == 'thum1'){
+      setImgModal(img1)
+      e.target.className = 'active-thumbnail-modal';
+      e.target.parentElement.children[1].className = 'thumbnail-modal';
+      e.target.parentElement.children[2].className = 'thumbnail-modal';
+      e.target.parentElement.children[3].className = 'thumbnail-modal';
+    }
+    else if(e.target.id == 'thum2'){
+      setImgModal(img2)
+      e.target.className = 'active-thumbnail-modal';
+      e.target.parentElement.children[0].className = 'thumbnail-modal';
+      e.target.parentElement.children[2].className = 'thumbnail-modal';
+      e.target.parentElement.children[3].className = 'thumbnail-modal';
+    }
+    else if(e.target.id == 'thum3'){
+      setImgModal(img3)
+      e.target.className = 'active-thumbnail-modal';
+      e.target.parentElement.children[0].className = 'thumbnail-modal';
+      e.target.parentElement.children[1].className = 'thumbnail-modal';
+      e.target.parentElement.children[3].className = 'thumbnail-modal';
+    }
+    else if(e.target.id == 'thum4'){
+      setImgModal(img4)
+      e.target.className = 'active-thumbnail-modal';
+      e.target.parentElement.children[0].className = 'thumbnail-modal';
+      e.target.parentElement.children[1].className = 'thumbnail-modal';
+      e.target.parentElement.children[2].className = 'thumbnail-modal';
+    }
+  }
+
+  const handleImgModal = e => {
+    e.target.parentElement.parentElement.nextSibling.style.display = 'flex';
+  }
+
+  const handleClose = e => {
+    e.target.parentElement.style.display = 'none';
+  }
+
+  const handlePrev = e => {
+    if(imgModal === img2){
+      setImgModal(img1)
+      e.target.parentElement.lastChild.children[0].className = 'active-thumbnail-modal';
+      e.target.parentElement.lastChild.children[1].className = 'thumbnail-modal';
+    }
+    else if(imgModal === img3){
+      setImgModal(img2)
+      e.target.parentElement.lastChild.children[1].className = 'active-thumbnail-modal';
+      e.target.parentElement.lastChild.children[2].className = 'thumbnail-modal';
+    }
+    else if(imgModal === img4){
+      setImgModal(img3)
+      e.target.parentElement.lastChild.children[2].className = 'active-thumbnail-modal';
+      e.target.parentElement.lastChild.children[3].className = 'thumbnail-modal';
+    }
+  }
+
+  const handleNext = e => {
+    if(imgModal === img1){
+      setImgModal(img2)
+      e.target.parentElement.lastChild.children[1].className = 'active-thumbnail-modal';
+      e.target.parentElement.lastChild.children[0].className = 'thumbnail-modal';
+    }
+    else if(imgModal === img2){
+      setImgModal(img3)
+      e.target.parentElement.lastChild.children[2].className = 'active-thumbnail-modal';
+      e.target.parentElement.lastChild.children[1].className = 'thumbnail-modal';
+    }
+    else if(imgModal === img3){
+      setImgModal(img4)
+      e.target.parentElement.lastChild.children[3].className = 'active-thumbnail-modal';
+      e.target.parentElement.lastChild.children[2].className = 'thumbnail-modal';
+    }
+  }
+
 
   return (
     <div className="App">
@@ -129,7 +208,7 @@ function App() {
                 <span className="offered-price">$125.00</span>
                 <span className='offer'>50%</span>
               </div>
-              <span>$250.00</span>
+              <span className='price'>$250.00</span>
             </div>
             <div className="add-cart">
               <div>
@@ -144,13 +223,27 @@ function App() {
             </div>
         </div>
         <div className="images">
-          <img className='image' src={img} />
-          <img src={thumnail1} onClick={handleImg} className='thumnail' id='thum1'/>
-          <img src={thumnail2} onClick={handleImg} className='thumnail' id='thum2'/>
-          <img src={thumnail3} onClick={handleImg} className='thumnail' id='thum3'/>
-          <img src={thumnail4} onClick={handleImg} className='thumnail' id='thum4'/>
+          <img className='image' onClick={handleImgModal} src={img} />
+          <div>
+            <img src={thumnail1} onClick={handleImg} className='active-thumbnail' id='thum1'/>
+            <img src={thumnail2} onClick={handleImg} className='thumbnail' id='thum2'/>
+            <img src={thumnail3} onClick={handleImg} className='thumbnail' id='thum3'/>
+            <img src={thumnail4} onClick={handleImg} className='thumbnail' id='thum4'/>
+          </div>
         </div>
       </section>
+      <div className="modal" style={{display: 'none'}}>
+        <img src={close} onClick={handleClose} className="close" />
+        <img src={previous} onClick={handlePrev} className="previous" />
+        <img src={imgModal} className='img-modal' />
+        <img src={next} onClick={handleNext} className="next" />
+        <div>
+            <img src={thumnail1} onClick={handleThumbnailModal} className='active-thumbnail-modal' id='thum1'/>
+            <img src={thumnail2} onClick={handleThumbnailModal} className='thumbnail-modal' id='thum2'/>
+            <img src={thumnail3} onClick={handleThumbnailModal} className='thumbnail-modal' id='thum3'/>
+            <img src={thumnail4} onClick={handleThumbnailModal} className='thumbnail-modal' id='thum4'/>
+        </div>
+      </div>
     </div>
   );
 }
